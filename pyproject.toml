@@ -1,7 +1,7 @@
 [project]
 name = "translator"
 version = "0.1.0"
-description = "Add your description here"
+description = "基于 OpenAI 兼容 API 的桌面翻译工具"
 requires-python = ">=3.10"
 dependencies = [
     "openai>=2.21.0",
