@@ -1,0 +1,15 @@
+[project]
+name = "translator"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=2.21.0",
+    "pyside6>=6.10.2",
+]
+
+[dependency-groups]
+dev = [
+    "nuitka[onefile]>=4.0.1",
+]
+
