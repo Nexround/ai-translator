@@ -16,3 +16,4 @@ wheels/
 
 # IDE
 .idea/
+.DS_Store

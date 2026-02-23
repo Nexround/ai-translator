@@ -17,7 +17,12 @@
 
 ### 下载使用
 
-前往 [Releases](../../releases/latest) 页面下载最新版 `TranslatorApp.exe`，双击即可运行，无需安装。
+前往 [Releases](../../releases/latest) 页面下载对应系统的程序：
+
+- Windows：`TranslatorApp.exe`
+- macOS：`TranslatorApp.app`（或 `TranslatorApp-macOS.dmg`）
+
+双击即可运行，无需安装。
 
 首次使用请点击右上角「设置」按钮，配置 API Key 和 Base URL。
 
@@ -40,16 +45,25 @@ uv sync --all-groups
 uv run python build.py
 ```
 
-生成的可执行文件位于 `dist/TranslatorApp.exe`。
+- Windows 产物：`dist/TranslatorApp.exe`
+- macOS 产物：`dist/TranslatorApp.app`
+
+生成 macOS DMG 安装包：
+
+```bash
+uv run python build.py --dmg
+```
+
+DMG 产物：`dist/TranslatorApp-macOS.dmg`
 
 ## 配置说明
 
-| 配置项 | 说明 | 默认值 |
-| --- | --- | --- |
-| API Key | 大模型 API 密钥 | — |
-| Base URL | API 端点地址 | `https://api.openai.com/v1` |
-| 模型 | 使用的模型名称 | `gpt-4o-mini` |
-| 系统提示词 | 发送给模型的指令，`{target_lang}` 会替换为目标语言 | 内置默认提示词 |
+| 配置项     | 说明                                               | 默认值                      |
+| ---------- | -------------------------------------------------- | --------------------------- |
+| API Key    | 大模型 API 密钥                                    | —                           |
+| Base URL   | API 端点地址                                       | `https://api.openai.com/v1` |
+| 模型       | 使用的模型名称                                     | `gpt-4o-mini`               |
+| 系统提示词 | 发送给模型的指令，`{target_lang}` 会替换为目标语言 | 内置默认提示词              |
 
 配置文件保存在 `~/.translator/config.json`。
 

@@ -17,7 +17,12 @@ A desktop translation tool powered by OpenAI-compatible APIs, featuring streamin
 
 ### Download
 
-Head to [Releases](../../releases/latest) and download the latest `TranslatorApp.exe`. Double-click to run — no installation required.
+Head to [Releases](../../releases/latest) and download the package for your OS:
+
+- Windows: `TranslatorApp.exe`
+- macOS: `TranslatorApp.app` (or `TranslatorApp-macOS.dmg`)
+
+Double-click to run — no installation required.
 
 On first launch, click the **Settings** button in the top-right corner to configure your API Key and Base URL.
 
@@ -40,16 +45,25 @@ uv sync --all-groups
 uv run python build.py
 ```
 
-The output executable is located at `dist/TranslatorApp.exe`.
+- Windows output: `dist/TranslatorApp.exe`
+- macOS output: `dist/TranslatorApp.app`
+
+Build macOS DMG package:
+
+```bash
+uv run python build.py --dmg
+```
+
+DMG output: `dist/TranslatorApp-macOS.dmg`
 
 ## Configuration
 
-| Option | Description | Default |
-| --- | --- | --- |
-| API Key | LLM API key | — |
-| Base URL | API endpoint | `https://api.openai.com/v1` |
-| Model | Model name | `gpt-4o-mini` |
-| System Prompt | Instruction sent to the model; `{target_lang}` is replaced with the target language | Built-in default |
+| Option        | Description                                                                         | Default                     |
+| ------------- | ----------------------------------------------------------------------------------- | --------------------------- |
+| API Key       | LLM API key                                                                         | —                           |
+| Base URL      | API endpoint                                                                        | `https://api.openai.com/v1` |
+| Model         | Model name                                                                          | `gpt-4o-mini`               |
+| System Prompt | Instruction sent to the model; `{target_lang}` is replaced with the target language | Built-in default            |
 
 Configuration is stored in `~/.translator/config.json`.
 

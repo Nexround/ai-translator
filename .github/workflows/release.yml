@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
@@ -32,18 +32,51 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TranslatorApp
+          name: TranslatorApp-windows
           path: dist/TranslatorApp.exe
 
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: uv sync --all-groups
+
+      - name: Build app and dmg
+        run: uv run python build.py --dmg
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TranslatorApp-macos
+          path: dist/TranslatorApp-macOS.dmg
+
   release:
-    needs: build
+    needs: [build-windows, build-macos]
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact
+      - name: Download windows artifact
         uses: actions/download-artifact@v4
         with:
-          name: TranslatorApp
+          name: TranslatorApp-windows
+          path: windows
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: TranslatorApp-macos
+          path: macos
 
       - name: Extract version from tag
         id: version
@@ -54,4 +87,6 @@ jobs:
         with:
           name: 翻译助手 v${{ steps.version.outputs.version }}
           generate_release_notes: true
-          files: TranslatorApp.exe
+          files: |
+            windows/TranslatorApp.exe
+            macos/TranslatorApp-macOS.dmg
